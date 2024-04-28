@@ -19,7 +19,9 @@ def city_by_state(state_id):
 
     if state_obj is None:
         abort(404)
-    city_list = [obj.to_dict() for obj in state_obj.cities]  # Updated line: Using list comprehension and to_dict()
+    for obj in state_obj.cities:
+        city_list.append(obj.to_json())
+
     return jsonify(city_list)
 
 
