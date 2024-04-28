@@ -40,6 +40,21 @@ class FileStorage:
             key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
 
+    def get(self, cls, id):
+        """Retrieve an object"""
+        objects = self.all(cls)
+        for obj in objects.values():
+            if obj.id == id:
+                return obj
+        return None
+
+    def count(self, cls=None):
+        """Count number of objects in storage"""
+        if cls:
+            return len(self.all(cls))
+        else:
+            return len(self.all())
+
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         json_objects = {}
